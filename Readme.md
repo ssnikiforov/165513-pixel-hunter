@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Stepan Nikiforov](https://up.htmlacademy.ru/ecmascript/4/user/165513).
-* Наставник: `Неизвестно`.
+* Наставник: [Nick Plekhanov](https://htmlacademy.ru/profile/id635053).
 
 ---
 
