@@ -19,14 +19,25 @@ const screenTemplates = [
   document.querySelector(`#stats`).content
 ];
 
+/**
+ * Go to the previous screen
+ * **/
 const goPrevScreen = () => {
   switchScreen(-1);
 };
 
+/**
+ * Go to the next screen
+ * **/
 const goNextScreen = () => {
   switchScreen(1);
 };
 
+/**
+ * Change index of screen to another and render screen with new index
+ *
+ * @param {number} newIndex
+ * **/
 const switchScreen = (newIndex) => {
   if (Math.abs(newIndex) > 1) {
     return;
@@ -38,6 +49,11 @@ const switchScreen = (newIndex) => {
   }
 };
 
+/**
+ * Renders the screen with specified index
+ *
+ * @param {number} index
+ * **/
 const renderScreen = (index) => {
   const screenElement = screenTemplates[index].cloneNode(true);
   while (mainElement.hasChildNodes()) {
@@ -47,6 +63,11 @@ const renderScreen = (index) => {
   screenIndex = index;
 };
 
+/**
+ * Keydown event handler
+ *
+ * @param {KeyboardEvent} downEvt
+ * **/
 const onSwitchScreenKeydown = (downEvt) => {
   downEvt = downEvt || event; // to deal with IE
   map[downEvt.keyCode] = downEvt.type === `keydown`;
@@ -57,6 +78,11 @@ const onSwitchScreenKeydown = (downEvt) => {
     goNextScreen();
   }
 
+  /**
+   * Keyup event handler
+   *
+   * @param {KeyboardEvent} upEvt
+   * **/
   const onSwitchScreenKeyup = (upEvt) => {
     document.removeEventListener(`keyup`, onSwitchScreenKeyup);
 
@@ -66,6 +92,9 @@ const onSwitchScreenKeydown = (downEvt) => {
   document.addEventListener(`keyup`, onSwitchScreenKeyup);
 };
 
+/**
+ * Init app
+ * **/
 const init = () => {
   renderScreen(screenIndex);
   document.addEventListener(`keydown`, onSwitchScreenKeydown);
