@@ -19,6 +19,14 @@ const screenTemplates = [
   document.querySelector(`#stats`).content
 ];
 
+const goPrevScreen = () => {
+  switchScreen(-1);
+};
+
+const goNextScreen = () => {
+  switchScreen(1);
+};
+
 const switchScreen = (newIndex) => {
   if (Math.abs(newIndex) > 1) {
     return;
@@ -37,14 +45,6 @@ const renderScreen = (index) => {
   }
   mainElement.appendChild(screenElement);
   screenIndex = index;
-};
-
-const goPrevScreen = () => {
-  switchScreen(-1);
-};
-
-const goNextScreen = () => {
-  switchScreen(1);
 };
 
 const onSwitchScreenKeydown = (downEvt) => {
