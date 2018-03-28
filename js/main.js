@@ -54,7 +54,7 @@ const goNextWindow = () => {
 
 const onSwitchWindowKeydown = (downEvt) => {
   downEvt = downEvt || event; // to deal with IE
-  map[downEvt.keyCode] = downEvt.type == `keydown`;
+  map[downEvt.keyCode] = downEvt.type === `keydown`;
 
   if (map[Keycodes.ALT] && map[Keycodes.LEFT_ARROW]) {
     goPrevWindow();
@@ -66,7 +66,7 @@ const onSwitchWindowKeydown = (downEvt) => {
     document.removeEventListener(`keyup`, onSwitchWindowKeyup);
 
     upEvt = upEvt || event; // to deal with IE
-    map[upEvt.keyCode] = upEvt.type == `keydown`;
+    map[upEvt.keyCode] = upEvt.type === `keydown`;
   };
   document.addEventListener(`keyup`, onSwitchWindowKeyup);
 };
