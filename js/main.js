@@ -4,13 +4,13 @@ const Keycodes = {
   RIGHT_ARROW: 39
 };
 
-const DEFAULT_WINDOW_INDEX = 0;
+const DEFAULT_SCREEN_INDEX = 0;
 const mainElement = document.querySelector(`main.central`);
 
-let windowIndex = DEFAULT_WINDOW_INDEX;
+let screenIndex = DEFAULT_SCREEN_INDEX;
 let map = {};
 
-const windowTemplates = [
+const screenTemplates = [
   document.querySelector(`#greeting`).content,
   document.querySelector(`#rules`).content,
   document.querySelector(`#game-1`).content,
@@ -19,61 +19,61 @@ const windowTemplates = [
   document.querySelector(`#stats`).content
 ];
 
-const changeWindowIndex = (newIndex) => {
+const changeScreenIndex = (newIndex) => {
   if (Math.abs(newIndex) > 1) {
     return;
   }
 
-  if ((windowIndex + newIndex >= 0) && (windowIndex + newIndex < windowTemplates.length)) {
-    windowIndex += newIndex;
+  if ((screenIndex + newIndex >= 0) && (screenIndex + newIndex < screenTemplates.length)) {
+    screenIndex += newIndex;
   }
 };
 
-const switchWindow = (index) => {
-  if (index < 0 || index >= windowTemplates.length) {
+const switchScreen = (index) => {
+  if (index < 0 || index >= screenTemplates.length) {
     return;
   }
 
-  const windowElement = windowTemplates[index].cloneNode(true);
+  const screenElement = screenTemplates[index].cloneNode(true);
   while (mainElement.hasChildNodes()) {
     mainElement.removeChild(mainElement.lastChild);
   }
-  mainElement.appendChild(windowElement);
-  windowIndex = index;
+  mainElement.appendChild(screenElement);
+  screenIndex = index;
 };
 
-const goPrevWindow = () => {
-  changeWindowIndex(-1);
-  switchWindow(windowIndex);
+const goPrevScreen = () => {
+  changeScreenIndex(-1);
+  switchScreen(screenIndex);
 };
 
-const goNextWindow = () => {
-  changeWindowIndex(1);
-  switchWindow(windowIndex);
+const goNextScreen = () => {
+  changeScreenIndex(1);
+  switchScreen(screenIndex);
 };
 
-const onSwitchWindowKeydown = (downEvt) => {
+const onSwitchScreenKeydown = (downEvt) => {
   downEvt = downEvt || event; // to deal with IE
   map[downEvt.keyCode] = downEvt.type === `keydown`;
 
   if (map[Keycodes.ALT] && map[Keycodes.LEFT_ARROW]) {
-    goPrevWindow();
+    goPrevScreen();
   } else if (map[Keycodes.ALT] && map[Keycodes.RIGHT_ARROW]) {
-    goNextWindow();
+    goNextScreen();
   }
 
-  const onSwitchWindowKeyup = (upEvt) => {
-    document.removeEventListener(`keyup`, onSwitchWindowKeyup);
+  const onSwitchScreenKeyup = (upEvt) => {
+    document.removeEventListener(`keyup`, onSwitchScreenKeyup);
 
     upEvt = upEvt || event; // to deal with IE
     map[upEvt.keyCode] = upEvt.type === `keydown`;
   };
-  document.addEventListener(`keyup`, onSwitchWindowKeyup);
+  document.addEventListener(`keyup`, onSwitchScreenKeyup);
 };
 
 const init = () => {
-  switchWindow(windowIndex);
-  document.addEventListener(`keydown`, onSwitchWindowKeydown);
+  switchScreen(screenIndex);
+  document.addEventListener(`keydown`, onSwitchScreenKeydown);
 };
 
 init();
