@@ -1,31 +1,79 @@
-const ALT_KEYCODE = 18;
-const LEFT_ARROW_KEYCODE = 37;
-const RIGHT_ARROW_KEYCODE = 37;
-
-const introEl = document.querySelector('#main');
-
-const greetingTemplateOriginal = document.querySelector(`#greeting`).content;
-const greetingTemplate = greetingTemplateOriginal.cloneNode(true);
-
-const rulesTemplateOriginal = document.querySelector(`#rules`).content;
-const rulesTemplate = rulesTemplateOriginal.cloneNode(true);
-
-const gameFirstOriginal = document.querySelector(`#game-1`).content;
-const gameFirstTemplate = gameFirstOriginal.cloneNode(true);
-
-const gameSecondOriginal = document.querySelector(`#game-2`).content;
-const gameSecondTemplate = gameSecondOriginal.cloneNode(true);
-
-const gameThirdOriginal = document.querySelector(`#game-3`).content;
-const gameThirdTemplate = gameThirdOriginal.cloneNode(true);
-
-const statsTemplateOriginal = document.querySelector(`#stats`).content;
-const statsTemplate = statsTemplateOriginal.cloneNode(true);
-
-const pressSwitchPageButtonHandler = (evt) => {
-  console.log(evt.keyCode);
-  // if (evt.keyCode === ESC_KEYCODE) {
-  //   action(arg);
-  // }
+const Keycodes = {
+  ALT: 18,
+  LEFT_ARROW: 37,
+  RIGHT_ARROW: 39
 };
-document.addEventListener('keydown', pressSwitchPageButtonHandler);
+
+const DEFAULT_WINDOW_INDEX = 0;
+const mainElement = document.querySelector(`main.central`);
+
+let windowIndex = DEFAULT_WINDOW_INDEX;
+let map = {};
+
+const windowTemplates = [
+  document.querySelector(`#greeting`).content,
+  document.querySelector(`#rules`).content,
+  document.querySelector(`#game-1`).content,
+  document.querySelector(`#game-2`).content,
+  document.querySelector(`#game-3`).content,
+  document.querySelector(`#stats`).content
+];
+
+const changeWindowIndex = (newIndex) => {
+  if (Math.abs(newIndex) > 1) {
+    return;
+  }
+
+  if ((windowIndex + newIndex >= 0) && (windowIndex + newIndex < windowTemplates.length)) {
+    windowIndex += newIndex;
+  }
+};
+
+const switchWindow = (index) => {
+  if (index < 0 || index >= windowTemplates.length) {
+    return;
+  }
+
+  const windowElement = windowTemplates[index].cloneNode(true);
+  while (mainElement.hasChildNodes()) {
+    mainElement.removeChild(mainElement.lastChild);
+  }
+  mainElement.appendChild(windowElement);
+  windowIndex = index;
+};
+
+const goPrevWindow = () => {
+  changeWindowIndex(-1);
+  switchWindow(windowIndex);
+};
+
+const goNextWindow = () => {
+  changeWindowIndex(1);
+  switchWindow(windowIndex);
+};
+
+const onSwitchWindowKeydown = (downEvt) => {
+  downEvt = downEvt || event; // to deal with IE
+  map[downEvt.keyCode] = downEvt.type == `keydown`;
+
+  if (map[Keycodes.ALT] && map[Keycodes.LEFT_ARROW]) {
+    goPrevWindow();
+  } else if (map[Keycodes.ALT] && map[Keycodes.RIGHT_ARROW]) {
+    goNextWindow();
+  }
+
+  const onSwitchWindowKeyup = (upEvt) => {
+    document.removeEventListener(`keyup`, onSwitchWindowKeyup);
+
+    upEvt = upEvt || event; // to deal with IE
+    map[upEvt.keyCode] = upEvt.type == `keydown`;
+  };
+  document.addEventListener(`keyup`, onSwitchWindowKeyup);
+};
+
+const init = () => {
+  switchWindow(windowIndex);
+  document.addEventListener(`keydown`, onSwitchWindowKeydown);
+};
+
+init();
