@@ -39,10 +39,6 @@ const goNextScreen = () => {
  * @param {number} newIndex
  * **/
 const switchScreen = (newIndex) => {
-  if (Math.abs(newIndex) > 1) {
-    return;
-  }
-
   if ((screenIndex + newIndex >= 0) && (screenIndex + newIndex < screenTemplates.length)) {
     screenIndex += newIndex;
     renderScreen(screenIndex);
