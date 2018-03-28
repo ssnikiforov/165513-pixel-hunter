@@ -19,21 +19,18 @@ const screenTemplates = [
   document.querySelector(`#stats`).content
 ];
 
-const changeScreenIndex = (newIndex) => {
+const switchScreen = (newIndex) => {
   if (Math.abs(newIndex) > 1) {
     return;
   }
 
   if ((screenIndex + newIndex >= 0) && (screenIndex + newIndex < screenTemplates.length)) {
     screenIndex += newIndex;
+    renderScreen(screenIndex);
   }
 };
 
-const switchScreen = (index) => {
-  if (index < 0 || index >= screenTemplates.length) {
-    return;
-  }
-
+const renderScreen = (index) => {
   const screenElement = screenTemplates[index].cloneNode(true);
   while (mainElement.hasChildNodes()) {
     mainElement.removeChild(mainElement.lastChild);
@@ -43,13 +40,11 @@ const switchScreen = (index) => {
 };
 
 const goPrevScreen = () => {
-  changeScreenIndex(-1);
-  switchScreen(screenIndex);
+  switchScreen(-1);
 };
 
 const goNextScreen = () => {
-  changeScreenIndex(1);
-  switchScreen(screenIndex);
+  switchScreen(1);
 };
 
 const onSwitchScreenKeydown = (downEvt) => {
@@ -72,7 +67,7 @@ const onSwitchScreenKeydown = (downEvt) => {
 };
 
 const init = () => {
-  switchScreen(screenIndex);
+  renderScreen(screenIndex);
   document.addEventListener(`keydown`, onSwitchScreenKeydown);
 };
 
