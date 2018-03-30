@@ -48,6 +48,8 @@ const onSwitchScreenKeydown = (evt) => {
   } else if (map[Keys.ALT] && map[Keys.RIGHT_ARROW]) {
     switchScreen(screenIndex + 1);
   }
+
+  document.addEventListener(`keyup`, onSwitchScreenKeyup);
 };
 
 /**
@@ -70,7 +72,6 @@ const onSwitchScreenKeyup = (evt) => {
 const init = () => {
   switchScreen(screenIndex);
   document.addEventListener(`keydown`, onSwitchScreenKeydown);
-  document.addEventListener(`keyup`, onSwitchScreenKeyup);
 };
 
 init();
