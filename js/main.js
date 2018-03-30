@@ -10,14 +10,8 @@ const mainElement = document.querySelector(`main.central`);
 let screenIndex = DEFAULT_SCREEN_INDEX;
 let map = {};
 
-const screenTemplates = [
-  document.querySelector(`#greeting`).content,
-  document.querySelector(`#rules`).content,
-  document.querySelector(`#game-1`).content,
-  document.querySelector(`#game-2`).content,
-  document.querySelector(`#game-3`).content,
-  document.querySelector(`#stats`).content
-];
+const screenTemplates = document.querySelectorAll(`template`);
+const contentOfScreenTemplates = Array.from(screenTemplates).map((template) => template.content);
 
 /**
  * Change index of screen to th new one and render screen with new index
@@ -25,12 +19,12 @@ const screenTemplates = [
  * @param {number} newScreenIndex
  * **/
 const switchScreen = (newScreenIndex) => {
-  if ((newScreenIndex < 0) || (newScreenIndex >= screenTemplates.length)) {
+  if ((newScreenIndex < 0) || (newScreenIndex >= contentOfScreenTemplates.length)) {
     return;
   }
 
   screenIndex = newScreenIndex;
-  const screenElement = screenTemplates[screenIndex].cloneNode(true);
+  const screenElement = contentOfScreenTemplates[screenIndex].cloneNode(true);
   while (mainElement.hasChildNodes()) {
     mainElement.removeChild(mainElement.lastChild);
   }
