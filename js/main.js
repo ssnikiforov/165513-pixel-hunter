@@ -1,7 +1,7 @@
-const Keycodes = {
-  ALT: 18,
-  LEFT_ARROW: 37,
-  RIGHT_ARROW: 39
+const Keys = {
+  ALT: `Alt`,
+  LEFT_ARROW: `ArrowLeft`,
+  RIGHT_ARROW: `ArrowRight`
 };
 
 const DEFAULT_SCREEN_INDEX = 0;
@@ -20,80 +20,63 @@ const screenTemplates = [
 ];
 
 /**
- * Go to the previous screen
- * **/
-const goPrevScreen = () => {
-  switchScreen(-1);
-};
-
-/**
- * Go to the next screen
- * **/
-const goNextScreen = () => {
-  switchScreen(1);
-};
-
-/**
- * Change index of screen to another and render screen with new index
+ * Change index of screen to th new one and render screen with new index
  *
- * @param {number} newIndex
+ * @param {number} newScreenIndex
  * **/
-const switchScreen = (newIndex) => {
-  if ((screenIndex + newIndex >= 0) && (screenIndex + newIndex < screenTemplates.length)) {
-    screenIndex += newIndex;
-    renderScreen(screenIndex);
+const switchScreen = (newScreenIndex) => {
+  if ((newScreenIndex < 0) || (newScreenIndex >= screenTemplates.length)) {
+    return;
   }
-};
 
-/**
- * Renders the screen with specified index
- *
- * @param {number} index
- * **/
-const renderScreen = (index) => {
-  const screenElement = screenTemplates[index].cloneNode(true);
+  screenIndex = newScreenIndex;
+  const screenElement = screenTemplates[screenIndex].cloneNode(true);
   while (mainElement.hasChildNodes()) {
     mainElement.removeChild(mainElement.lastChild);
   }
   mainElement.appendChild(screenElement);
-  screenIndex = index;
 };
 
 /**
  * Keydown event handler
  *
- * @param {KeyboardEvent} downEvt
+ * @param {KeyboardEvent} evt
  * **/
-const onSwitchScreenKeydown = (downEvt) => {
-  downEvt = downEvt || event; // to deal with IE
-  map[downEvt.keyCode] = downEvt.type === `keydown`;
-
-  if (map[Keycodes.ALT] && map[Keycodes.LEFT_ARROW]) {
-    goPrevScreen();
-  } else if (map[Keycodes.ALT] && map[Keycodes.RIGHT_ARROW]) {
-    goNextScreen();
+const onSwitchScreenKeydown = (evt) => {
+  evt = evt || event; // to deal with IE
+  if (Object.values(Keys).indexOf(evt.key) === -1) {
+    return;
   }
 
-  /**
-   * Keyup event handler
-   *
-   * @param {KeyboardEvent} upEvt
-   * **/
-  const onSwitchScreenKeyup = (upEvt) => {
-    document.removeEventListener(`keyup`, onSwitchScreenKeyup);
+  map[evt.key] = evt.type === `keydown`;
+  if (map[Keys.ALT] && map[Keys.LEFT_ARROW]) {
+    switchScreen(screenIndex - 1);
+  } else if (map[Keys.ALT] && map[Keys.RIGHT_ARROW]) {
+    switchScreen(screenIndex + 1);
+  }
+};
 
-    upEvt = upEvt || event; // to deal with IE
-    map[upEvt.keyCode] = upEvt.type === `keydown`;
-  };
-  document.addEventListener(`keyup`, onSwitchScreenKeyup);
+/**
+ * Keyup event handler
+ *
+ * @param {KeyboardEvent} evt
+ * **/
+const onSwitchScreenKeyup = (evt) => {
+  evt = evt || event; // to deal with IE
+  if (Object.values(Keys).indexOf(evt.key) === -1) {
+    return;
+  }
+
+  map[evt.key] = evt.type === `keydown`;
 };
 
 /**
  * Init app
  * **/
 const init = () => {
-  renderScreen(screenIndex);
+  switchScreen(screenIndex);
   document.addEventListener(`keydown`, onSwitchScreenKeydown);
+  document.addEventListener(`keyup`, onSwitchScreenKeyup);
 };
 
 init();
