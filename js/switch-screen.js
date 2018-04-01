@@ -16,16 +16,7 @@ const screens = [
   statsElement
 ];
 
-// const KeyCode = {
-//   LEFT_ARROW: 37,
-//   RIGHT_ARROW: 39
-// };
-// let screenIndex = 0;
-
-
 const mainElement = document.querySelector(`main.central`);
-// const screenTemplates = document.querySelectorAll(`template`);
-// const contentOfScreenTemplates = Array.from(screenTemplates).map((template) => template.content);
 
 /**
  * Change index of screen to the new one and render screen with new index
@@ -38,20 +29,4 @@ const switchScreen = (newScreenIndex) => {
   mainElement.appendChild(screenElement);
 };
 
-// /**
-//  * Keydown event handler
-//  *
-//  * @param {KeyboardEvent} evt
-//  * **/
-// const onKeyDown = (evt) => {
-//   if (evt.altKey && evt.keyCode === KeyCode.LEFT_ARROW && screenIndex - 1 >= 0) {
-//     switchScreen(--screenIndex);
-//   } else if (evt.altKey && evt.keyCode === KeyCode.RIGHT_ARROW && screenIndex + 1 < screens.length) {
-//     switchScreen(++screenIndex);
-//   }
-// };
-//
-// document.addEventListener(`keydown`, onKeyDown);
-
-
-export {switchScreen, screens};
+export default switchScreen;
