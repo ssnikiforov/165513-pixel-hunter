@@ -4,7 +4,9 @@
  * @param {String} elementString
  * **/
 const getElementFromTemplate = (elementString) => {
-  return document.createElement(elementString);
+  const div = document.createElement('div');
+  div.innerHTML = elementString.trim();
+  return div;
 };
 
 export default getElementFromTemplate;
