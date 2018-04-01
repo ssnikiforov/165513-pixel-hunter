@@ -17,7 +17,7 @@ const contentOfScreenTemplates = Array.from(screenTemplates).map((template) => t
  * **/
 const switchScreen = (newScreenIndex) => {
   const screenElement = contentOfScreenTemplates[newScreenIndex].cloneNode(true);
-  mainElement.innerHTML = '';
+  mainElement.innerHTML = ``;
   mainElement.appendChild(screenElement);
 };
 
@@ -30,9 +30,9 @@ const onKeyDown = (evt) => {
   evt = evt || event; // to deal with IE
 
   if (evt.altKey && evt.keyCode === KeyCode.LEFT_ARROW && screenIndex - 1 >= 0) {
-      switchScreen(--screenIndex);
+    switchScreen(--screenIndex);
   } else if (evt.altKey && evt.keyCode === KeyCode.RIGHT_ARROW && screenIndex + 1 < contentOfScreenTemplates.length) {
-      switchScreen(++screenIndex);
+    switchScreen(++screenIndex);
   }
 };
 
