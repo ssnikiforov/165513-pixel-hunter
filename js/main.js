@@ -1,15 +1,12 @@
-const Key = {
-  ALT: `Alt`,
-  LEFT_ARROW: `ArrowLeft`,
-  RIGHT_ARROW: `ArrowRight`
+const KeyCode = {
+  LEFT_ARROW: 37,
+  RIGHT_ARROW: 39
 };
 
 const DEFAULT_SCREEN_INDEX = 0;
-const mainElement = document.querySelector(`main.central`);
-
 let screenIndex = DEFAULT_SCREEN_INDEX;
-const map = {};
 
+const mainElement = document.querySelector(`main.central`);
 const screenTemplates = document.querySelectorAll(`template`);
 const contentOfScreenTemplates = Array.from(screenTemplates).map((template) => template.content);
 
@@ -31,34 +28,14 @@ const switchScreen = (newScreenIndex) => {
  * **/
 const onKeyDown = (evt) => {
   evt = evt || event; // to deal with IE
-  if (Object.values(Key).indexOf(evt.key) === -1) {
-    return;
-  }
 
-  map[evt.key] = evt.type === `keydown`;
-  if (map[Key.ALT] && map[Key.LEFT_ARROW]) {
+  if (evt.altKey && evt.keyCode === KeyCode.LEFT_ARROW) {
     screenIndex = screenIndex - 1 >= 0 ? screenIndex - 1 : screenIndex;
     switchScreen(screenIndex);
-  } else if (map[Key.ALT] && map[Key.RIGHT_ARROW]) {
+  } else if (evt.altKey && evt.keyCode === KeyCode.RIGHT_ARROW) {
     screenIndex = screenIndex + 1 < contentOfScreenTemplates.length ? screenIndex + 1 : screenIndex;
     switchScreen(screenIndex);
   }
-
-  document.addEventListener(`keyup`, onKeyUp);
-};
-
-/**
- * Keyup event handler
- *
- * @param {KeyboardEvent} evt
- * **/
-const onKeyUp = (evt) => {
-  evt = evt || event; // to deal with IE
-  if (Object.values(Key).indexOf(evt.key) === -1) {
-    return;
-  }
-
-  map[evt.key] = evt.type === `keydown`;
 };
 
 /**
