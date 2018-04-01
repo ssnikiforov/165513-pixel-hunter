@@ -3,8 +3,7 @@ const KeyCode = {
   RIGHT_ARROW: 39
 };
 
-const DEFAULT_SCREEN_INDEX = 0;
-let screenIndex = DEFAULT_SCREEN_INDEX;
+let screenIndex = 0;
 
 const mainElement = document.querySelector(`main.central`);
 const screenTemplates = document.querySelectorAll(`template`);
