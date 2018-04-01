@@ -53,13 +53,10 @@ const onArrowClick = () => {
 const addListenersToFirstGameScreen = () => {
   const formElement = mainElement.querySelector(`.game__content`);
   const inputs = formElement.querySelectorAll(`input`);
-  const photoInputs = formElement.querySelectorAll(`input[value="photo"]`);
-  const paintInputs = formElement.querySelectorAll(`input[value="paint"]`);
 
   const onInputChange = () => {
-    const checkedPhotoInputs = Array.from(photoInputs).filter((photoInput) => photoInput.checked);
-    const checkedPaintInputs = Array.from(paintInputs).filter((paintInput) => paintInput.checked);
-    if (checkedPhotoInputs.length > 0 && checkedPaintInputs.length > 0) {
+    const checkedInputs = Array.from(inputs).filter((input) => input.checked);
+    if (checkedInputs.length > 1) {
       switchScreen(4);
       addListenersToSecondGameScreen();
       addListenersToBackButton();
