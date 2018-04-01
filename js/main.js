@@ -10,7 +10,7 @@ const screenTemplates = document.querySelectorAll(`template`);
 const contentOfScreenTemplates = Array.from(screenTemplates).map((template) => template.content);
 
 /**
- * Change index of screen to th new one and render screen with new index
+ * Change index of screen to the new one and render screen with new index
  *
  * @param {number} newScreenIndex
  * **/
