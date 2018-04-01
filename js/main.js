@@ -19,12 +19,7 @@ const contentOfScreenTemplates = Array.from(screenTemplates).map((template) => t
  * @param {number} newScreenIndex
  * **/
 const switchScreen = (newScreenIndex) => {
-  if (newScreenIndex < 0 || newScreenIndex >= contentOfScreenTemplates.length) {
-    return;
-  }
-
-  screenIndex = newScreenIndex;
-  const screenElement = contentOfScreenTemplates[screenIndex].cloneNode(true);
+  const screenElement = contentOfScreenTemplates[newScreenIndex].cloneNode(true);
   mainElement.innerHTML = '';
   mainElement.appendChild(screenElement);
 };
@@ -42,9 +37,11 @@ const onKeyDown = (evt) => {
 
   map[evt.key] = evt.type === `keydown`;
   if (map[Key.ALT] && map[Key.LEFT_ARROW]) {
-    switchScreen(screenIndex - 1);
+    screenIndex = screenIndex - 1 >= 0 ? screenIndex - 1 : screenIndex;
+    switchScreen(screenIndex);
   } else if (map[Key.ALT] && map[Key.RIGHT_ARROW]) {
-    switchScreen(screenIndex + 1);
+    screenIndex = screenIndex + 1 < contentOfScreenTemplates.length ? screenIndex + 1 : screenIndex;
+    switchScreen(screenIndex);
   }
 
   document.addEventListener(`keyup`, onKeyUp);
