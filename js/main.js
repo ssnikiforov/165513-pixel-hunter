@@ -3,11 +3,17 @@ import switchScreen from './switch-screen.js';
 let screenIndex = 0;
 const mainElement = document.querySelector(`main.central`);
 
+/**
+ * Adds listeners to the Greeting screen
+ * **/
 const addListenersToGreetingScreen = () => {
   const arrowElement = mainElement.querySelector(`.greeting__continue`);
   arrowElement.addEventListener('click', onArrowClick);
 };
 
+/**
+ * Adds listeners to the back button
+ * **/
 const addListenersToBackButton = () => {
   const backButton = mainElement.querySelector('.back');
 
@@ -18,13 +24,17 @@ const addListenersToBackButton = () => {
   backButton.addEventListener('click', onBackButtonClick);
 };
 
-// on greeting screen
+/**
+ * Handles actions when user clicked on the Asterisk element on the Intro screen
+ * **/
 const onAsteriskClick = () => {
   switchScreen(1);
   addListenersToGreetingScreen();
 };
 
-// on rules screen
+/**
+ * Handles actions when user clicked on the Arrow element on the Greeting screen
+ * **/
 const onArrowClick = () => {
   switchScreen(2);
 
@@ -50,6 +60,9 @@ const onArrowClick = () => {
   addListenersToBackButton();
 };
 
+/**
+ * Adds listeners to the First Game  screen
+ * **/
 const addListenersToFirstGameScreen = () => {
   const formElement = mainElement.querySelector(`.game__content`);
   const inputs = formElement.querySelectorAll(`input`);
@@ -65,6 +78,9 @@ const addListenersToFirstGameScreen = () => {
   inputs.forEach((input) => input.addEventListener('change', onInputChange));
 };
 
+/**
+ * Adds listeners to the Second Game  screen
+ * **/
 const addListenersToSecondGameScreen = () => {
   const formElement = mainElement.querySelector(`.game__content`);
   const inputs = formElement.querySelectorAll(`input`);
@@ -78,6 +94,9 @@ const addListenersToSecondGameScreen = () => {
   addListenersToBackButton();
 };
 
+/**
+ * Adds listeners to the Third Game  screen
+ * **/
 const addListenersToThirdGameScreen = () => {
   const formElement = mainElement.querySelector(`.game__content`);
   const options = formElement.querySelectorAll('.game__option');
