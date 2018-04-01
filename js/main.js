@@ -26,8 +26,6 @@ const switchScreen = (newScreenIndex) => {
  * @param {KeyboardEvent} evt
  * **/
 const onKeyDown = (evt) => {
-  evt = evt || event; // to deal with IE
-
   if (evt.altKey && evt.keyCode === KeyCode.LEFT_ARROW && screenIndex - 1 >= 0) {
     switchScreen(--screenIndex);
   } else if (evt.altKey && evt.keyCode === KeyCode.RIGHT_ARROW && screenIndex + 1 < contentOfScreenTemplates.length) {
