@@ -8,20 +8,20 @@ const mainElement = document.querySelector(`main.central`);
  * **/
 const addListenersToGreetingScreen = () => {
   const arrowElement = mainElement.querySelector(`.greeting__continue`);
-  arrowElement.addEventListener('click', onArrowClick);
+  arrowElement.addEventListener(`click`, onArrowClick);
 };
 
 /**
  * Adds listeners to the back button
  * **/
 const addListenersToBackButton = () => {
-  const backButton = mainElement.querySelector('.back');
+  const backButton = mainElement.querySelector(`.back`);
 
   const onBackButtonClick = () => {
     switchScreen(1);
     addListenersToGreetingScreen();
   };
-  backButton.addEventListener('click', onBackButtonClick);
+  backButton.addEventListener(`click`, onBackButtonClick);
 };
 
 /**
@@ -53,9 +53,9 @@ const onArrowClick = () => {
     addListenersToBackButton();
   };
 
-  inputElement.addEventListener('keyup', onInputChange);
-  inputElement.addEventListener('blur', onInputChange);
-  buttonElement.addEventListener('click', onSubmitButtonClick);
+  inputElement.addEventListener(`keyup`, onInputChange);
+  inputElement.addEventListener(`blur`, onInputChange);
+  buttonElement.addEventListener(`click`, onSubmitButtonClick);
 
   addListenersToBackButton();
 };
@@ -75,7 +75,7 @@ const addListenersToFirstGameScreen = () => {
       addListenersToBackButton();
     }
   };
-  inputs.forEach((input) => input.addEventListener('change', onInputChange));
+  inputs.forEach((input) => input.addEventListener(`change`, onInputChange));
 };
 
 /**
@@ -89,7 +89,7 @@ const addListenersToSecondGameScreen = () => {
     addListenersToThirdGameScreen();
     addListenersToBackButton();
   };
-  inputs.forEach((input) => input.addEventListener('change', onInputChange));
+  inputs.forEach((input) => input.addEventListener(`change`, onInputChange));
 
   addListenersToBackButton();
 };
@@ -99,13 +99,13 @@ const addListenersToSecondGameScreen = () => {
  * **/
 const addListenersToThirdGameScreen = () => {
   const formElement = mainElement.querySelector(`.game__content`);
-  const options = formElement.querySelectorAll('.game__option');
+  const options = formElement.querySelectorAll(`.game__option`);
 
   const onOptionClick = () => {
     switchScreen(6);
     addListenersToBackButton();
   };
-  options.forEach((option) => option.addEventListener('click', onOptionClick));
+  options.forEach((option) => option.addEventListener(`click`, onOptionClick));
 };
 
 /**
@@ -115,7 +115,7 @@ const init = () => {
   switchScreen(screenIndex);
 
   const asteriskElement = mainElement.querySelector(`.intro__asterisk`);
-  asteriskElement.addEventListener('click', onAsteriskClick);
+  asteriskElement.addEventListener(`click`, onAsteriskClick);
 };
 
 init();
