@@ -1,6 +1,9 @@
+import {addListenersToBackButton} from './common.js';
+import {addListenersWhenPageIsReady} from './../utils.js';
 import getElementFromTemplate from './../get-element.js';
+import switchScreen from './../switch-screen.js';
 
-const element = `<header class="header">
+const html = `<header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -53,4 +56,33 @@ const element = `<header class="header">
     </div>
   </footer>`;
 
-export default getElementFromTemplate(element);
+const thirdGameElement = getElementFromTemplate(html);
+const formElementSelector = `.game__content`;
+const backButtonSelector = `.back`;
+
+/**
+ * Adds listeners to the Game-3 screen
+ *
+ * @param {Element} element
+ * **/
+const addListenersToThirdGameScreen = (element) => {
+  const options = element.querySelectorAll(`.game__option`);
+
+  /**
+   * Handles the option element click event
+   * **/
+  const onOptionClick = () => {
+    switchScreen(6);
+  };
+  options.forEach((option) => option.addEventListener(`click`, onOptionClick));
+};
+
+/**
+ * Activates screen
+ * **/
+const activateThirdGameScreen = () => {
+  addListenersWhenPageIsReady(addListenersToThirdGameScreen, formElementSelector);
+  addListenersWhenPageIsReady(addListenersToBackButton, backButtonSelector);
+};
+
+export {thirdGameElement, activateThirdGameScreen};

@@ -1,6 +1,8 @@
+import {addListenersToBackButton} from './common.js';
+import {addListenersWhenPageIsReady} from './../utils.js';
 import getElementFromTemplate from './../get-element.js';
 
-const element = `<header class="header">
+const html = `<header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -119,4 +121,14 @@ const element = `<header class="header">
     </div>
   </footer>`;
 
-export default getElementFromTemplate(element);
+const statsElement = getElementFromTemplate(html);
+const backButtonSelector = `.back`;
+
+/**
+ * Activates screen
+ * **/
+const activateStatsScreen = () => {
+  addListenersWhenPageIsReady(addListenersToBackButton, backButtonSelector);
+};
+
+export {statsElement, activateStatsScreen};

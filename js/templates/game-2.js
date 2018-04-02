@@ -1,6 +1,9 @@
+import {addListenersToBackButton} from './common.js';
+import {addListenersWhenPageIsReady} from './../utils.js';
 import getElementFromTemplate from './../get-element.js';
+import switchScreen from './../switch-screen.js';
 
-const element = `<header class="header">
+const html = `<header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -55,4 +58,33 @@ const element = `<header class="header">
     </div>
   </footer>`;
 
-export default getElementFromTemplate(element);
+const secondGameElement = getElementFromTemplate(html);
+const formElementSelector = `.game__content`;
+const backButtonSelector = `.back`;
+
+/**
+ * Adds listeners to the Game-2 screen
+ *
+ * @param {Element} element
+ * **/
+const addListenersToSecondGameScreen = (element) => {
+  const inputs = element.querySelectorAll(`input`);
+
+  /**
+   * Handles the change event of values in form input fields
+   * **/
+  const onInputChange = () => {
+    switchScreen(5);
+  };
+  inputs.forEach((input) => input.addEventListener(`change`, onInputChange));
+};
+
+/**
+ * Activates screen
+ * **/
+const activateSecondGameScreen = () => {
+  addListenersWhenPageIsReady(addListenersToSecondGameScreen, formElementSelector);
+  addListenersWhenPageIsReady(addListenersToBackButton, backButtonSelector);
+};
+
+export {secondGameElement, activateSecondGameScreen};

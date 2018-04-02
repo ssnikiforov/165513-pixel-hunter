@@ -1,6 +1,9 @@
+import {addListenersToBackButton} from './common.js';
+import {addListenersWhenPageIsReady} from './../utils.js';
 import getElementFromTemplate from './../get-element.js';
+import switchScreen from './../switch-screen.js';
 
-const element = `<header class="header">
+const html = `<header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -35,4 +38,46 @@ const element = `<header class="header">
     </div>
   </footer>`;
 
-export default getElementFromTemplate(element);
+const rulesElement = getElementFromTemplate(html);
+const formElementSelector = `.rules__form`;
+const backButtonSelector = `.back`;
+
+/**
+ * Adds listeners to the Rules screen
+ *
+ * @param {Element} element
+ * **/
+const addListenersToRulesScreen = (element) => {
+  const inputElement = element.querySelector(`.rules__input`);
+  const buttonElement = element.querySelector(`.rules__button`);
+
+  /**
+   * Handles the change event of values in form input fields
+   *
+   * @param {InputEvent} inputEvt
+   * **/
+  const onInputChange = (inputEvt) => {
+    buttonElement.disabled = !inputEvt.target.validity.valid;
+  };
+
+  /**
+   * Handles the submit button click event
+   * **/
+  const onSubmitButtonClick = () => {
+    switchScreen(3);
+  };
+
+  inputElement.addEventListener(`keyup`, onInputChange);
+  inputElement.addEventListener(`blur`, onInputChange);
+  buttonElement.addEventListener(`click`, onSubmitButtonClick);
+};
+
+/**
+ * Activates screen
+ * **/
+const activateRulesScreen = () => {
+  addListenersWhenPageIsReady(addListenersToRulesScreen, formElementSelector);
+  addListenersWhenPageIsReady(addListenersToBackButton, backButtonSelector);
+};
+
+export {rulesElement, activateRulesScreen};

@@ -1,6 +1,8 @@
+import {addListenersToGreetingScreen} from './common.js';
+import {addListenersWhenPageIsReady} from './../utils.js';
 import getElementFromTemplate from './../get-element.js';
 
-const element = `<div class="greeting central--blur">
+const html = `<div class="greeting central--blur">
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
     <h1 class="greeting__asterisk">*</h1>
     <div class="greeting__challenge">
@@ -24,4 +26,14 @@ const element = `<div class="greeting central--blur">
     </div>
   </footer>`;
 
-export default getElementFromTemplate(element);
+const greetingElement = getElementFromTemplate(html);
+const arrowElementSelector = `.greeting__continue`;
+
+/**
+ * Activates screen
+ * **/
+const activateGreetingScreen = () => {
+  addListenersWhenPageIsReady(addListenersToGreetingScreen, arrowElementSelector);
+};
+
+export {greetingElement, activateGreetingScreen};
