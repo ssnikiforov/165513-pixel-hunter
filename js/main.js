@@ -1,10 +1,11 @@
-import switchScreen from './switch-screen.js';
+import introElement from './screens/intro.js';
+import {switchScreen} from './utils';
 
 /**
  * Init app
  * **/
 const init = () => {
-  switchScreen(0);
+  switchScreen(introElement);
 };
 
 init();

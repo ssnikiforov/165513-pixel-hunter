@@ -1,6 +1,5 @@
 import {addListenersToGreetingScreen} from './common.js';
-import {addListenersWhenPageIsReady} from './../utils.js';
-import getElementFromTemplate from './../get-element.js';
+import {addListenersWhenPageIsReady, getElementFromTemplate, switchScreen} from './../utils.js';
 
 const html = `<div class="greeting central--blur">
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>

@@ -1,6 +1,5 @@
 import {addListenersWhenPageIsReady} from './../utils.js';
-import getElementFromTemplate from './../get-element.js';
-import switchScreen from './../switch-screen.js';
+import {getElementFromTemplate, switchScreen} from './../utils.js';
 
 const html = `<div id="intro" class="intro">
   <h1 class="intro__asterisk">*</h1>
@@ -32,4 +31,4 @@ const activateIntroScreen = () => {
   addListenersWhenPageIsReady(addListenersToIntroScreen, asteriskElementSelector);
 };
 
-export {introElement, activateIntroScreen};
+export default introElement;

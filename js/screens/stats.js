@@ -1,6 +1,5 @@
 import {addListenersToBackButton} from './common.js';
-import {addListenersWhenPageIsReady} from './../utils.js';
-import getElementFromTemplate from './../get-element.js';
+import {addListenersWhenPageIsReady, getElementFromTemplate, switchScreen} from './../utils.js';
 
 const html = `<header class="header">
     <div class="header__back">
