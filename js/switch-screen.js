@@ -1,10 +1,10 @@
-import {introElement, activateIntroScreen} from './templates/intro.js';
-import {greetingElement, activateGreetingScreen} from './templates/greeting.js';
-import {rulesElement, activateRulesScreen} from './templates/rules.js';
-import {firstGameElement, activateFirstGameScreen} from './templates/game-1.js';
-import {secondGameElement, activateSecondGameScreen} from './templates/game-2.js';
-import {thirdGameElement, activateThirdGameScreen} from './templates/game-3.js';
-import {statsElement, activateStatsScreen} from './templates/stats.js';
+import {introElement, activateIntroScreen} from './screens/intro.js';
+import {greetingElement, activateGreetingScreen} from './screens/greeting.js';
+import {rulesElement, activateRulesScreen} from './screens/rules.js';
+import {firstGameElement, activateFirstGameScreen} from './screens/game-1.js';
+import {secondGameElement, activateSecondGameScreen} from './screens/game-2.js';
+import {thirdGameElement, activateThirdGameScreen} from './screens/game-3.js';
+import {statsElement, activateStatsScreen} from './screens/stats.js';
 
 const screens = [
   introElement,
