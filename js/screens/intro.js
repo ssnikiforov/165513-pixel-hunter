@@ -1,34 +1,20 @@
-import {addListenersWhenPageIsReady} from './../utils.js';
 import {getElementFromTemplate, switchScreen} from './../utils.js';
+import getIntroScreen from './greeting.js';
 
-const html = `<div id="intro" class="intro">
+export default () => {
+  const introElement = getElementFromTemplate(`<div id="intro" class="intro">
   <h1 class="intro__asterisk">*</h1>
   <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
-</div>`;
+</div>`);
 
-const introElement = getElementFromTemplate(html);
-const asteriskElementSelector = `.intro__asterisk`;
-
-/**
- * Adds listeners to the Intro Screen
- *
- * @param {Element} element
- * **/
-const addListenersToIntroScreen = (element) => {
+  const asteriskElement = introElement.querySelector(`.intro__asterisk`);
   /**
-   * Handles click on asterisk element
+   * Handles the click event on the asterisk element
    * **/
   const onAsteriskClick = () => {
-    switchScreen(1);
+    switchScreen(getIntroScreen());
   };
-  element.addEventListener(`click`, onAsteriskClick);
-};
+  asteriskElement.addEventListener(`click`, onAsteriskClick);
 
-/**
- * Activates screen
- * **/
-const activateIntroScreen = () => {
-  addListenersWhenPageIsReady(addListenersToIntroScreen, asteriskElementSelector);
+  return introElement;
 };
-
-export default introElement;

@@ -1,7 +1,9 @@
-import {addListenersToBackButton} from './common.js';
-import {addListenersWhenPageIsReady, getElementFromTemplate, switchScreen} from './../utils.js';
+import {getElementFromTemplate, switchScreen} from './../utils.js';
+import getGreetingScreen from './greeting.js';
+import getStatsScreen from './stats.js';
 
-const html = `<header class="header">
+export default () => {
+  const thirdGameElement = getElementFromTemplate(`<header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -52,35 +54,30 @@ const html = `<header class="header">
       <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
-  </footer>`;
+  </footer>`);
 
-const thirdGameElement = getElementFromTemplate(html);
-const formElementSelector = `.game__content`;
-const backButtonSelector = `.back`;
+  const backButtonSelector = thirdGameElement.querySelector(`.back`);
+  /**
+   * Handles the click event on the back button
+   * **/
+  const onBackButtonClick = () => {
+    switchScreen(getGreetingScreen());
+  };
+  backButtonSelector.addEventListener(`click`, onBackButtonClick);
 
-/**
- * Adds listeners to the Game-3 screen
- *
- * @param {Element} element
- * **/
-const addListenersToThirdGameScreen = (element) => {
-  const options = element.querySelectorAll(`.game__option`);
+  const formElement = thirdGameElement.querySelector(`.game__content`);
 
   /**
-   * Handles the option element click event
+   * Handles the change event of form fields
+   *
+   * @param {Event} evt
    * **/
-  const onOptionClick = () => {
-    switchScreen(6);
+  const onFormChange = (evt) => {
+    if (evt.target.classList.contains(`game__option`)) {
+      switchScreen(getStatsScreen());
+    }
   };
-  options.forEach((option) => option.addEventListener(`click`, onOptionClick));
-};
+  formElement.addEventListener(`click`, onFormChange, true);
 
-/**
- * Activates screen
- * **/
-const activateThirdGameScreen = () => {
-  addListenersWhenPageIsReady(addListenersToThirdGameScreen, formElementSelector);
-  addListenersWhenPageIsReady(addListenersToBackButton, backButtonSelector);
+  return thirdGameElement;
 };
-
-export {thirdGameElement, activateThirdGameScreen};

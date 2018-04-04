@@ -1,7 +1,9 @@
-import {addListenersToBackButton} from './common.js';
-import {addListenersWhenPageIsReady, getElementFromTemplate, switchScreen} from './../utils.js';
+import {getElementFromTemplate, switchScreen} from './../utils.js';
+import getGreetingScreen from './greeting.js';
+import getFirstGameScreen from './game-1.js';
 
-const html = `<header class="header">
+export default () => {
+  const rulesElement = getElementFromTemplate(`<header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -34,23 +36,22 @@ const html = `<header class="header">
       <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
-  </footer>`;
+  </footer>`);
 
-const rulesElement = getElementFromTemplate(html);
-const formElementSelector = `.rules__form`;
-const backButtonSelector = `.back`;
+  const backButtonSelector = rulesElement.querySelector(`.back`);
+  /**
+   * Handles the click event on the back button
+   * **/
+  const onBackButtonClick = () => {
+    switchScreen(getGreetingScreen());
+  };
+  backButtonSelector.addEventListener(`click`, onBackButtonClick);
 
-/**
- * Adds listeners to the Rules screen
- *
- * @param {Element} element
- * **/
-const addListenersToRulesScreen = (element) => {
-  const inputElement = element.querySelector(`.rules__input`);
-  const buttonElement = element.querySelector(`.rules__button`);
+  const inputElement = rulesElement.querySelector(`.rules__input`);
+  const buttonElement = rulesElement.querySelector(`.rules__button`);
 
   /**
-   * Handles the change event of values in form input fields
+   * Handles the change event of form input field
    *
    * @param {InputEvent} inputEvt
    * **/
@@ -59,23 +60,15 @@ const addListenersToRulesScreen = (element) => {
   };
 
   /**
-   * Handles the submit button click event
+   * Handles the click event on button element
    * **/
   const onSubmitButtonClick = () => {
-    switchScreen(3);
+    switchScreen(getFirstGameScreen());
   };
 
   inputElement.addEventListener(`keyup`, onInputChange);
   inputElement.addEventListener(`blur`, onInputChange);
   buttonElement.addEventListener(`click`, onSubmitButtonClick);
-};
 
-/**
- * Activates screen
- * **/
-const activateRulesScreen = () => {
-  addListenersWhenPageIsReady(addListenersToRulesScreen, formElementSelector);
-  addListenersWhenPageIsReady(addListenersToBackButton, backButtonSelector);
+  return rulesElement;
 };
-
-export {rulesElement, activateRulesScreen};

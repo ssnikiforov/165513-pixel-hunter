@@ -1,7 +1,8 @@
-import {addListenersToBackButton} from './common.js';
-import {addListenersWhenPageIsReady, getElementFromTemplate, switchScreen} from './../utils.js';
+import {getElementFromTemplate, switchScreen} from './../utils.js';
+import getGreetingScreen from './greeting.js';
 
-const html = `<header class="header">
+export default () => {
+  const statsElement = getElementFromTemplate(`<header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -118,16 +119,16 @@ const html = `<header class="header">
       <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
-  </footer>`;
+  </footer>`);
 
-const statsElement = getElementFromTemplate(html);
-const backButtonSelector = `.back`;
+  const backButtonSelector = statsElement.querySelector(`.back`);
+  /**
+   * Handles the click event on the back button
+   * **/
+  const onBackButtonClick = () => {
+    switchScreen(getGreetingScreen());
+  };
+  backButtonSelector.addEventListener(`click`, onBackButtonClick);
 
-/**
- * Activates screen
- * **/
-const activateStatsScreen = () => {
-  addListenersWhenPageIsReady(addListenersToBackButton, backButtonSelector);
+  return statsElement;
 };
-
-export {statsElement, activateStatsScreen};

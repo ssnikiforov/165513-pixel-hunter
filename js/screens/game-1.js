@@ -1,7 +1,9 @@
-import {addListenersToBackButton} from './common.js';
-import {addListenersWhenPageIsReady, getElementFromTemplate, switchScreen} from './../utils.js';
+import {getElementFromTemplate, switchScreen} from './../utils.js';
+import getGreetingScreen from './greeting.js';
+import getSecondGameScreen from './game-2.js';
 
-const html = `<header class="header">
+export default () => {
+  const firstGameElement = getElementFromTemplate(`<header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -65,38 +67,34 @@ const html = `<header class="header">
       <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
-  </footer>`;
+  </footer>`);
 
-const firstGameElement = getElementFromTemplate(html);
-const formElementSelector = `.game__content`;
-const backButtonSelector = `.back`;
+  const backButtonSelector = firstGameElement.querySelector(`.back`);
+  /**
+   * Handles the click event on the back button
+   * **/
+  const onBackButtonClick = () => {
+    switchScreen(getGreetingScreen());
+  };
+  backButtonSelector.addEventListener(`click`, onBackButtonClick);
 
-/**
- * Adds listeners to the Game-1 screen
- *
- * @param {Element} element
- * **/
-const addListenersToFirstGameScreen = (element) => {
-  const inputs = element.querySelectorAll(`input`);
+  const formElement = firstGameElement.querySelector(`.game__content`);
 
   /**
-   * Handles the change event of values in form input fields
+   * Handles the change event of form fields
+   *
+   * @param {Event} evt
    * **/
-  const onInputChange = () => {
-    const checkedInputs = Array.from(inputs).filter((input) => input.checked);
-    if (checkedInputs.length > 1) {
-      switchScreen(4);
+  const onFormChange = (evt) => {
+    if (evt.target.tagName.toLowerCase() === `input`) {
+      const inputs = evt.currentTarget.querySelectorAll(`input`);
+      const checkedInputs = Array.from(inputs).filter((input) => input.checked);
+      if (checkedInputs.length > 1) {
+        switchScreen(getSecondGameScreen());
+      }
     }
   };
-  inputs.forEach((input) => input.addEventListener(`change`, onInputChange));
-};
+  formElement.addEventListener(`change`, onFormChange, true);
 
-/**
- * Activates screen
- * **/
-const activateFirstGameScreen = () => {
-  addListenersWhenPageIsReady(addListenersToFirstGameScreen, formElementSelector);
-  addListenersWhenPageIsReady(addListenersToBackButton, backButtonSelector);
+  return firstGameElement;
 };
-
-export {firstGameElement, activateFirstGameScreen};

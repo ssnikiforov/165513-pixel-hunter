@@ -1,7 +1,8 @@
-import {addListenersToGreetingScreen} from './common.js';
-import {addListenersWhenPageIsReady, getElementFromTemplate, switchScreen} from './../utils.js';
+import {getElementFromTemplate, switchScreen} from './../utils.js';
+import getRulesScreen from './rules.js';
 
-const html = `<div class="greeting central--blur">
+export default () => {
+  const greetingElement = getElementFromTemplate(`<div class="greeting central--blur">
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
     <h1 class="greeting__asterisk">*</h1>
     <div class="greeting__challenge">
@@ -23,16 +24,16 @@ const html = `<div class="greeting central--blur">
       <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
-  </footer>`;
+  </footer>`);
 
-const greetingElement = getElementFromTemplate(html);
-const arrowElementSelector = `.greeting__continue`;
+  const arrowElement = greetingElement.querySelector(`.greeting__continue`);
+  /**
+   * Handles the click event on the arrow element
+   * **/
+  const onArrowClick = () => {
+    switchScreen(getRulesScreen());
+  };
+  arrowElement.addEventListener(`click`, onArrowClick);
 
-/**
- * Activates screen
- * **/
-const activateGreetingScreen = () => {
-  addListenersWhenPageIsReady(addListenersToGreetingScreen, arrowElementSelector);
+  return greetingElement;
 };
-
-export {greetingElement, activateGreetingScreen};
