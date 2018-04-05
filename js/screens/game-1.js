@@ -79,8 +79,8 @@ backButton.addEventListener(`click`, onBackButtonClick);
 const form = screenFirstGame.querySelector(`.game__content`);
 
 const onFormChange = (evt) => {
-  const target = evt.target;
-  if (target.name.startsWith(`question`) && evt.currentTarget.querySelectorAll(`input:checked[type="radio"]`).length > 1) {
+  if (evt.target.name.startsWith(`question`) &&
+    evt.currentTarget.querySelectorAll(`input:checked[type="radio"]`).length > 1) {
     switchScreen(screenSecondGame);
   }
 };
