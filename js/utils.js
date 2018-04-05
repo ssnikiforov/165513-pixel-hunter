@@ -1,3 +1,5 @@
+const mainElement = document.querySelector(`main.central`);
+
 /**
  * Returns new DOM element created by passed string
  *
@@ -17,7 +19,6 @@ const getElementFromTemplate = (elementString) => {
  * @param {Node} newScreenElement
  * **/
 const switchScreen = (newScreenElement) => {
-  const mainElement = document.querySelector(`main.central`);
   mainElement.innerHTML = ``;
   mainElement.appendChild(newScreenElement);
 };
