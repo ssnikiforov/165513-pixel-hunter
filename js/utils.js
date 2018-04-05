@@ -1,39 +1,20 @@
 /**
- * Do callback action only when page is ready
- *
- * @param {Function} cb
- * @param {String} selector
- * **/
-const addListenersWhenPageIsReady = (cb, selector) => {
-  const promise = new Promise(function (resolve) {
-    if (document.readyState === `complete`) {
-      resolve();
-    } else {
-      document.addEventListener(`DOMContentLoaded`, resolve);
-    }
-  });
-  promise.then(function whenElementIsReady() {
-    const element = document.querySelector(selector);
-    cb(element);
-  });
-};
-
-/**
  * Returns new DOM element created by passed string
  *
  * @param {String} elementString
- * @return {Element} div
+ * @return {Node} div
  * **/
 const getElementFromTemplate = (elementString) => {
-  let fragment = document.createElement(`template`);
-  fragment.innerHTML = elementString.trim();
-  return fragment.content;
+  const template = document.createElement(`template`);
+  template.innerHTML = elementString.trim();
+
+  return template.content.firstChild;
 };
 
 /**
  * Change index of screen to the new one and render screen with new index
  *
- * @param {Element} newScreenElement
+ * @param {Node} newScreenElement
  * **/
 const switchScreen = (newScreenElement) => {
   const mainElement = document.querySelector(`main.central`);
@@ -42,7 +23,6 @@ const switchScreen = (newScreenElement) => {
 };
 
 export {
-  addListenersWhenPageIsReady,
   getElementFromTemplate,
   switchScreen
 };

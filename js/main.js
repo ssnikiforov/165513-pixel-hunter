@@ -1,11 +1,4 @@
-import getIntroScreen from './screens/intro.js';
+import screenIntro from './screens/intro';
 import {switchScreen} from './utils';
 
-/**
- * Init app
- * **/
-const init = () => {
-  switchScreen(getIntroScreen());
-};
-
-init();
+switchScreen(screenIntro);

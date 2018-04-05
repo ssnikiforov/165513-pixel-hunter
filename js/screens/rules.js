@@ -1,9 +1,8 @@
-import {getElementFromTemplate, switchScreen} from './../utils.js';
-import getGreetingScreen from './greeting.js';
-import getFirstGameScreen from './game-1.js';
+import {getElementFromTemplate, switchScreen} from './../utils';
+import screenGreeting from './greeting';
+import screenFirstGame from './game-1';
 
-export default () => {
-  const rulesElement = getElementFromTemplate(`<header class="header">
+const screenRules = getElementFromTemplate(`<section class="main main--result"><header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -36,39 +35,27 @@ export default () => {
       <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
-  </footer>`);
+  </footer></section>`);
 
-  const backButtonSelector = rulesElement.querySelector(`.back`);
-  /**
-   * Handles the click event on the back button
-   * **/
-  const onBackButtonClick = () => {
-    switchScreen(getGreetingScreen());
-  };
-  backButtonSelector.addEventListener(`click`, onBackButtonClick);
+const backButton = screenRules.querySelector(`.back`);
+const onBackButtonClick = () => switchScreen(screenGreeting);
+backButton.addEventListener(`click`, onBackButtonClick);
 
-  const inputElement = rulesElement.querySelector(`.rules__input`);
-  const buttonElement = rulesElement.querySelector(`.rules__button`);
+const input = screenRules.querySelector(`.rules__input`);
+const button = screenRules.querySelector(`.rules__button`);
 
-  /**
-   * Handles the change event of form input field
-   *
-   * @param {InputEvent} inputEvt
-   * **/
-  const onInputChange = (inputEvt) => {
-    buttonElement.disabled = !inputEvt.target.validity.valid;
-  };
-
-  /**
-   * Handles the click event on button element
-   * **/
-  const onSubmitButtonClick = () => {
-    switchScreen(getFirstGameScreen());
-  };
-
-  inputElement.addEventListener(`keyup`, onInputChange);
-  inputElement.addEventListener(`blur`, onInputChange);
-  buttonElement.addEventListener(`click`, onSubmitButtonClick);
-
-  return rulesElement;
+/**
+ * Handles the change event of form input field
+ *
+ * @param {InputEvent} inputEvt
+ * **/
+const onInputChange = (inputEvt) => {
+  button.disabled = !inputEvt.target.value.length > 0;
 };
+const onSubmitButtonClick = () => switchScreen(screenFirstGame);
+
+input.addEventListener(`keyup`, onInputChange);
+input.addEventListener(`blur`, onInputChange);
+button.addEventListener(`click`, onSubmitButtonClick);
+
+export default screenRules;

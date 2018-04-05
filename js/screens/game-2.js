@@ -1,9 +1,8 @@
-import {getElementFromTemplate, switchScreen} from './../utils.js';
-import getGreetingScreen from './greeting.js';
-import getThirdGameScreen from './game-3.js';
+import {getElementFromTemplate, switchScreen} from './../utils';
+import screenGreeting from './greeting';
+import screenThirdGame from './game-3';
 
-export default () => {
-  const secondGameElement = getElementFromTemplate(`<header class="header">
+const screenSecondGame = getElementFromTemplate(`<section class="main main--result"><header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -56,30 +55,24 @@ export default () => {
       <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
-  </footer>`);
+  </footer></section>`);
 
-  const backButtonSelector = secondGameElement.querySelector(`.back`);
-  /**
-   * Handles the click event on the back button
-   * **/
-  const onBackButtonClick = () => {
-    switchScreen(getGreetingScreen());
-  };
-  backButtonSelector.addEventListener(`click`, onBackButtonClick);
+const backButton = screenSecondGame.querySelector(`.back`);
+const onBackButtonClick = () => switchScreen(screenGreeting);
+backButton.addEventListener(`click`, onBackButtonClick);
 
-  const formElement = secondGameElement.querySelector(`.game__content`);
+const form = screenSecondGame.querySelector(`.game__content`);
 
-  /**
-   * Handles the change event of form fields
-   *
-   * @param {Event} evt
-   * **/
-  const onFormChange = (evt) => {
-    if (evt.target.tagName.toLowerCase() === `input`) {
-      switchScreen(getThirdGameScreen());
-    }
-  };
-  formElement.addEventListener(`change`, onFormChange, true);
-
-  return secondGameElement;
+/**
+ * Handles the change event of form fields
+ *
+ * @param {Event} evt
+ * **/
+const onFormChange = (evt) => {
+  if (evt.target.tagName.toLowerCase() === `input`) {
+    switchScreen(screenThirdGame);
+  }
 };
+form.addEventListener(`change`, onFormChange, true);
+
+export default screenSecondGame;

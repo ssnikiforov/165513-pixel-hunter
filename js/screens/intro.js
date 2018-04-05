@@ -1,20 +1,13 @@
-import {getElementFromTemplate, switchScreen} from './../utils.js';
-import getIntroScreen from './greeting.js';
+import {getElementFromTemplate, switchScreen} from './../utils';
+import screenGreeting from './greeting';
 
-export default () => {
-  const introElement = getElementFromTemplate(`<div id="intro" class="intro">
+const screenIntro = getElementFromTemplate(`<section class="main main--result"><div id="intro" class="intro">
   <h1 class="intro__asterisk">*</h1>
   <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
-</div>`);
+  </div></section>`);
 
-  const asteriskElement = introElement.querySelector(`.intro__asterisk`);
-  /**
-   * Handles the click event on the asterisk element
-   * **/
-  const onAsteriskClick = () => {
-    switchScreen(getIntroScreen());
-  };
-  asteriskElement.addEventListener(`click`, onAsteriskClick);
+const asterisk = screenIntro.querySelector(`.intro__asterisk`);
+const onAsteriskClick = () => switchScreen(screenGreeting);
+asterisk.addEventListener(`click`, onAsteriskClick);
 
-  return introElement;
-};
+export default screenIntro;

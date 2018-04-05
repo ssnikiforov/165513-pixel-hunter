@@ -1,9 +1,8 @@
-import {getElementFromTemplate, switchScreen} from './../utils.js';
-import getGreetingScreen from './greeting.js';
-import getStatsScreen from './stats.js';
+import {getElementFromTemplate, switchScreen} from './../utils';
+import screenGreeting from './greeting';
+import screenStats from './stats';
 
-export default () => {
-  const thirdGameElement = getElementFromTemplate(`<header class="header">
+const screenThirdGame = getElementFromTemplate(`<section class="main main--result"><header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -54,30 +53,24 @@ export default () => {
       <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
-  </footer>`);
+  </footer></section>`);
 
-  const backButtonSelector = thirdGameElement.querySelector(`.back`);
-  /**
-   * Handles the click event on the back button
-   * **/
-  const onBackButtonClick = () => {
-    switchScreen(getGreetingScreen());
-  };
-  backButtonSelector.addEventListener(`click`, onBackButtonClick);
+const backButton = screenThirdGame.querySelector(`.back`);
+const onBackButtonClick = () => switchScreen(screenGreeting);
+backButton.addEventListener(`click`, onBackButtonClick);
 
-  const formElement = thirdGameElement.querySelector(`.game__content`);
+const form = screenThirdGame.querySelector(`.game__content`);
 
-  /**
-   * Handles the change event of form fields
-   *
-   * @param {Event} evt
-   * **/
-  const onFormChange = (evt) => {
-    if (evt.target.classList.contains(`game__option`)) {
-      switchScreen(getStatsScreen());
-    }
-  };
-  formElement.addEventListener(`click`, onFormChange, true);
-
-  return thirdGameElement;
+/**
+ * Handles the click event of form fields
+ *
+ * @param {Event} evt
+ * **/
+const onFormClick = (evt) => {
+  if (evt.target.classList.contains(`game__option`)) {
+    switchScreen(screenStats);
+  }
 };
+form.addEventListener(`click`, onFormClick, true);
+
+export default screenThirdGame;

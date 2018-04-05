@@ -1,9 +1,8 @@
-import {getElementFromTemplate, switchScreen} from './../utils.js';
-import getGreetingScreen from './greeting.js';
-import getSecondGameScreen from './game-2.js';
+import {getElementFromTemplate, switchScreen} from './../utils';
+import screenGreeting from './greeting';
+import screenSecondGame from './game-2';
 
-export default () => {
-  const firstGameElement = getElementFromTemplate(`<header class="header">
+const screenFirstGame = getElementFromTemplate(`<section class="main main--result"><header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -67,34 +66,27 @@ export default () => {
       <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
-  </footer>`);
+  </footer></section>`);
 
-  const backButtonSelector = firstGameElement.querySelector(`.back`);
-  /**
-   * Handles the click event on the back button
-   * **/
-  const onBackButtonClick = () => {
-    switchScreen(getGreetingScreen());
-  };
-  backButtonSelector.addEventListener(`click`, onBackButtonClick);
+const backButton = screenFirstGame.querySelector(`.back`);
+const onBackButtonClick = () => switchScreen(screenGreeting);
+backButton.addEventListener(`click`, onBackButtonClick);
 
-  const formElement = firstGameElement.querySelector(`.game__content`);
+const form = screenFirstGame.querySelector(`.game__content`);
 
-  /**
-   * Handles the change event of form fields
-   *
-   * @param {Event} evt
-   * **/
-  const onFormChange = (evt) => {
-    if (evt.target.tagName.toLowerCase() === `input`) {
-      const inputs = evt.currentTarget.querySelectorAll(`input`);
-      const checkedInputs = Array.from(inputs).filter((input) => input.checked);
-      if (checkedInputs.length > 1) {
-        switchScreen(getSecondGameScreen());
-      }
+/**
+ * Handles the change event of form fields
+ *
+ * @param {Event} evt
+ * **/
+const onFormChange = (evt) => {
+  if (evt.target.tagName.toLowerCase() === `input`) {
+    const checkedInputs = evt.currentTarget.querySelectorAll(`input:checked`);
+    if (checkedInputs.length > 1) {
+      switchScreen(screenSecondGame);
     }
-  };
-  formElement.addEventListener(`change`, onFormChange, true);
-
-  return firstGameElement;
+  }
 };
+form.addEventListener(`change`, onFormChange, true);
+
+export default screenFirstGame;
