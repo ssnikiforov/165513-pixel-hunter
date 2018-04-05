@@ -80,11 +80,8 @@ const form = screenFirstGame.querySelector(`.game__content`);
 
 const onFormChange = (evt) => {
   const target = evt.target;
-  if (target.name.startsWith(`question`)) {
-    const checkedInputs = evt.currentTarget.querySelectorAll(`input:checked[type="radio"]`);
-    if (checkedInputs.length > 1) {
-      switchScreen(screenSecondGame);
-    }
+  if (target.name.startsWith(`question`) && evt.currentTarget.querySelectorAll(`input:checked[type="radio"]`).length > 1) {
+    switchScreen(screenSecondGame);
   }
 };
 form.addEventListener(`change`, onFormChange, true);
