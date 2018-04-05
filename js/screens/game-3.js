@@ -65,11 +65,6 @@ backButton.addEventListener(`click`, onBackButtonClick);
 
 const form = screenThirdGame.querySelector(`.game__content`);
 
-/**
- * Handles the click event of form fields
- *
- * @param {Event} evt
- * **/
 const onFormClick = (evt) => {
   if (evt.target.classList.contains(`game__option`)) {
     switchScreen(screenStats);

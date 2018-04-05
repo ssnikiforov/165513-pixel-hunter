@@ -48,11 +48,6 @@ backButton.addEventListener(`click`, onBackButtonClick);
 const input = screenRules.querySelector(`.rules__input`);
 const button = screenRules.querySelector(`.rules__button`);
 
-/**
- * Handles the change event of form input field
- *
- * @param {InputEvent} inputEvt
- * **/
 const onInputChange = (inputEvt) => {
   button.disabled = !inputEvt.target.value.length > 0;
 };

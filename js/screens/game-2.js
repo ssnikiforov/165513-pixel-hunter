@@ -67,11 +67,6 @@ backButton.addEventListener(`click`, onBackButtonClick);
 
 const form = screenSecondGame.querySelector(`.game__content`);
 
-/**
- * Handles the change event of form fields
- *
- * @param {Event} evt
- * **/
 const onFormChange = (evt) => {
   if (evt.target.name.startsWith(`question`)) {
     switchScreen(screenThirdGame);

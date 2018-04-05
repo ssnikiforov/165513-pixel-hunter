@@ -78,11 +78,6 @@ backButton.addEventListener(`click`, onBackButtonClick);
 
 const form = screenFirstGame.querySelector(`.game__content`);
 
-/**
- * Handles the change event of form fields
- *
- * @param {Event} evt
- * **/
 const onFormChange = (evt) => {
   const target = evt.target;
   if (target.name.startsWith(`question`)) {
